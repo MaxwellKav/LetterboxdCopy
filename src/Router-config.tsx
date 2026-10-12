@@ -14,7 +14,10 @@ const routerConfig: RouteObject[] = [
       },
       {
         path: "/review",
-        Component: Reviewform,
+        children: [
+          { index: true, Component: Reviewform },       
+          { path: ":movieId", Component: Reviewform },  
+        ],
       },
       {
         path: "/list",
