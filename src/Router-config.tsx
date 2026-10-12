@@ -32,7 +32,7 @@ function Home() {
   return (
     <div className="md:w-3xl">
       <header>
-        <h1>Välkommen till shitterBox</h1>
+        <title>Välkommen till shitterBox</title>
         <div>
           Här kan du recensera och läsa dina tidigare recensioner.
         </div>

@@ -72,11 +72,11 @@ function App() {
 
     return (
     <div className="grid max-w-5xl grid-rows-1 gap-4">
-      <h1 className="text-center text-3xl font-bold">Min egen salladsbar</h1>
+      <h1 className="text-center text-3xl font-bold">shitterBox</h1>
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuLink render={<Link to="/">Hem</Link>} />
+            <NavigationMenuLink render={<Link to="/" />}>Hem</NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink render={<Link to="/review">Lägg till review</Link>} />
