@@ -15,7 +15,7 @@ type ContextType = {
 const IMG_BASE = "https://image.tmdb.org/t/p/w154";
 
 
-function StarRating({ rating, onChange }: { rating: number; onChange(rating: number): void }) {
+export function StarRating({ rating, onChange }: { rating: number; onChange(rating: number): void }) {
   const stars = rating / 2; 
   const color = "text-blue-500";
 
@@ -32,6 +32,7 @@ function StarRating({ rating, onChange }: { rating: number; onChange(rating: num
         return (
           <button
             key={i}
+            type = "button"
             className="relative inline-block size-6 cursor-pointer"
             aria-label={`Star ${i}`}
             onClick={() => handleClick(i, fill)}
