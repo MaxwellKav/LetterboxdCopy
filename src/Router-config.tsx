@@ -37,7 +37,7 @@ function Home() {
       <header>
         <title>Välkommen till shitterBox</title>
         <div>
-          Här kan du recensera och läsa dina tidigare recensioner.
+          <img src="./src/assets/shitterBoxd.png"></img>
         </div>
       </header>
     </div>
