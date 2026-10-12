@@ -1,12 +1,6 @@
 
 import { v4 as uuidv4 } from'uuid';
-
-type Review = {
-    name: string
-    description: string;
-    rating: number;
-    favorite: boolean;
-};
+import type { Movie, Review } from "./types";
 
 type ReviewDict = Readonly<Record<string, Review>>;
 

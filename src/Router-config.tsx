@@ -1,4 +1,4 @@
-import { createBrowserRouter, useOutletContext, type RouteObject } from "@react-router/dev/routes"
+import { createBrowserRouter, useOutletContext, type RouteObject } from "react-router"
 import App from "./App";
 import Reviewform from "./Review-form";
 import Viewreviews from "./Review-list";
@@ -13,11 +13,11 @@ const routerConfig: RouteObject[] = [
         Component: Home,
       },
       {
-        path: "/create-review",
+        path: "/review",
         Component: Reviewform,
       },
       {
-        path: "/Review-list",
+        path: "/list",
         Component: Viewreviews,
       },
       {
@@ -32,7 +32,7 @@ function Home() {
   return (
     <div className="md:w-3xl">
       <header>
-        <title>Välkommen till shitterBox</title>
+        <h1>Välkommen till shitterBox</h1>
         <div>
           Här kan du recensera och läsa dina tidigare recensioner.
         </div>
@@ -45,9 +45,7 @@ function PageNotFound() {
   return <h2>Sidan kunde inte hittas</h2>;
 }
 
-type PropsType = {
-  reviewlist: Review[];
-};
+
 
 const router = createBrowserRouter(routerConfig)
 
