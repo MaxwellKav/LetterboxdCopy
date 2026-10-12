@@ -1,4 +1,4 @@
-import { createBrowserRouter, useOutletContext, type RouteObject } from "@react-router/dev/routes"
+import { createBrowserRouter, type RouteObject } from "react-router";
 import App from "./App";
 import Reviewform from "./Review-form";
 import Viewreviews from "./Review-list";
@@ -32,7 +32,7 @@ function Home() {
   return (
     <div className="md:w-3xl">
       <header>
-        <title>Välkommen till shitterBox</title>
+        <h2 className="text-2xl font-bold">Välkommen till shitterBox</h2>
         <div>
           Här kan du recensera och läsa dina tidigare recensioner.
         </div>
@@ -44,10 +44,6 @@ function Home() {
 function PageNotFound() {
   return <h2>Sidan kunde inte hittas</h2>;
 }
-
-type PropsType = {
-  reviewlist: Review[];
-};
 
 const router = createBrowserRouter(routerConfig)
 
