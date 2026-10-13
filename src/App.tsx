@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from "react";
 import { Reviews } from './reviews'
 import './App.css'
 import {
@@ -11,6 +11,7 @@ import {
 import { Outlet } from "react-router";
 import type { Movie, Review } from "./types";
 import { Link } from 'react-router';
+
 
 
 
@@ -61,6 +62,10 @@ function readReviews(): Reviews {
 function App() {
 
   const [reviews, setReviews] = useState<Reviews>(readReviews);
+
+    useEffect(() => {
+      localStorage.setItem("reviews", JSON.stringify(reviews.reviews));
+    }, [reviews]);
 
   function updateReview(review: Review) {
     setReviews(prev => prev.add(review.movie.title, review));
