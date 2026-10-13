@@ -33,11 +33,11 @@ const routerConfig: RouteObject[] = [
 
 function Home() {
   return (
-    <div className="md:w-3xl">
+    <div className="mx-auto md:w-3xl">
       <header>
         <title>Välkommen till shitterBox</title>
         <div>
-          <img src="./src/assets/shitterBoxd.png"></img>
+          <img className="mx-auto" src="./src/assets/shitterBoxd.png"></img>
         </div>
       </header>
     </div>

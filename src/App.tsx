@@ -76,9 +76,9 @@ function App() {
   }
 
     return (
-    <div className="grid max-w-5xl grid-rows-1 gap-4">
+    <div className="mx-auto grid max-w-5xl grid-rows-1 gap-4 p-4">
       <h1 className="text-center text-3xl font-bold">shitterBox</h1>
-      <NavigationMenu>
+      <NavigationMenu className="mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuLink render={<Link to="/" />}>Hem</NavigationMenuLink>

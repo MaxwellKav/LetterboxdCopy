@@ -15,44 +15,75 @@ type ContextType = {
 
 const IMG_BASE = "https://image.tmdb.org/t/p/w342";
 
-const placeholderMovies: Movie[] = [
-  {
-    id: 27205,
-    title: "Inception",
-    overview: "A thief who steals secrets from people's dreams...",
-    release_date: "2010-07-15",
-    poster_path: "/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
-    vote_average: 8.4,
-  },
-  {
-    id: 157336,
-    title: "Interstellar",
-    overview: "A team of explorers travels through a wormhole...",
-    release_date: "2014-11-05",
-    poster_path: "/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
-    vote_average: 8.5,
-  },
-  {
-    id: 1,
-    title: "Testfilm utan poster",
-    overview: "",
-    release_date: "2020-01-01",
-    poster_path: null,
-    vote_average: 0,
-  },
-];
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 function MovieSearch({ onSelect }: { onSelect(movie: Movie): void }) {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<Movie[] | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSearch(event: FormEvent) {
+    event.preventDefault();
+    if (query.trim() === "") return;
+
+    setLoading(true);
+    setError(null);
+    try {
+      const url =
+        "https://api.themoviedb.org/3/search/movie" +
+        `?api_key=${API_KEY}&query=${encodeURIComponent(query)}`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`TMDB svarade med status ${response.status}`);
+      }
+      const data = await response.json();
+      setResults(data.results);
+    } catch {
+      setError("Sökningen misslyckades.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
-    <ul className="grid gap-2">
-      {placeholderMovies.map(movie => (
-        <li key={movie.id}>
-          <Button type="button" variant="outline" onClick={() => onSelect(movie)}>
-            {movie.title} ({movie.release_date.slice(0, 4)})
-          </Button>
-        </li>
-      ))}
-    </ul>
+    <div className="grid gap-4">
+      <form onSubmit={handleSearch} className="flex gap-2">
+        <label htmlFor="movie-search" className="sr-only">
+          Sök film
+        </label>
+        <input
+          id="movie-search"
+          type="search"
+          placeholder="Sök efter en film..."
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          className="flex-1 rounded-md border border-input bg-transparent px-3 py-2 text-sm"
+        />
+        <Button type="submit" disabled={loading}>
+          {loading ? "Söker..." : "Sök"}
+        </Button>
+      </form>
+
+      {error && <p className="text-sm text-destructive">{error}</p>}
+
+      {results && results.length === 0 && (
+        <p className="text-sm text-muted-foreground">Inga filmer hittades.</p>
+      )}
+
+      {results && results.length > 0 && (
+        <ul className="grid gap-2">
+          {results.map(movie => (
+            <li key={movie.id}>
+              <Button type="button" variant="outline" onClick={() => onSelect(movie)}>
+                {movie.title}
+                {movie.release_date && ` (${movie.release_date.slice(0, 4)})`}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -63,9 +94,7 @@ function ReviewFormInner({ movieId }: { movieId?: string }) {
   const existing = movieId
     ? Object.values(reviews.reviews).find(r => r.movie.id === Number(movieId))
     : undefined;
-  const startMovie = existing?.movie
-    ?? placeholderMovies.find(m => m.id === Number(movieId))
-    ?? null;
+  const startMovie = existing?.movie ?? null;
 
   const [movie, setMovie] = useState<Movie | null>(startMovie);
   const [rating, setRating] = useState<number | null>(existing?.rating ?? null);
@@ -83,7 +112,7 @@ function ReviewFormInner({ movieId }: { movieId?: string }) {
     return (
       <Card className="p-4">
         <h2 className="text-xl font-semibold">Vilken film vill du recensera?</h2>
-        <MovieSearch onSelect={movie => navigate(`/review/${movie.id}`)} />
+        <MovieSearch onSelect={setMovie} />
       </Card>
     );
   }
@@ -103,7 +132,10 @@ function ReviewFormInner({ movieId }: { movieId?: string }) {
           <div>
             <h2 className="text-2xl font-semibold">{movie.title}</h2>
             
-              <Button type="button" variant="link" className="h-auto p-0" onClick={() => navigate("/review")}>
+              <Button type="button" variant="link" className="h-auto p-0" onClick={() => {
+                  setMovie(null);
+                  navigate("/review");
+                }}>
                 Byt film
               </Button>
             
