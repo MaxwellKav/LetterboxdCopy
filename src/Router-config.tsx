@@ -35,9 +35,9 @@ function Home() {
   return (
     <div className="mx-auto md:w-3xl">
       <header>
-        <title>Välkommen till shitterBox</title>
+        <title>Välkommen till litterBoxd</title>
         <div>
-          <img className="mx-auto" src="./src/assets/shitterBoxd.png"></img>
+          <img className="mx-auto" src="./src/assets/litterBoxd.png"></img>
         </div>
       </header>
     </div>

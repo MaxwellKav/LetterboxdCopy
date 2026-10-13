@@ -77,7 +77,7 @@ function App() {
 
     return (
     <div className="mx-auto grid max-w-5xl grid-rows-1 gap-4 p-4">
-      <h1 className="text-center text-3xl font-bold">shitterBox</h1>
+      <h1 className="text-center text-3xl font-bold">litterBoxd</h1>
       <NavigationMenu className="mx-auto">
         <NavigationMenuList>
           <NavigationMenuItem>
