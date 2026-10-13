@@ -83,7 +83,7 @@ function ReviewFormInner({ movieId }: { movieId?: string }) {
     return (
       <Card className="p-4">
         <h2 className="text-xl font-semibold">Vilken film vill du recensera?</h2>
-        <MovieSearch onSelect={setMovie} />
+        <MovieSearch onSelect={movie => navigate(`/review/${movie.id}`)} />
       </Card>
     );
   }
@@ -102,11 +102,11 @@ function ReviewFormInner({ movieId }: { movieId?: string }) {
         <div className="flex flex-1 flex-col gap-4">
           <div>
             <h2 className="text-2xl font-semibold">{movie.title}</h2>
-            {!existing && (
-              <Button type="button" variant="link" className="h-auto p-0" onClick={() => { setMovie(null); setRating(null); }}>
+            
+              <Button type="button" variant="link" className="h-auto p-0" onClick={() => navigate("/review")}>
                 Byt film
               </Button>
-            )}
+            
           </div>
 
           <div className="flex items-center gap-3">
