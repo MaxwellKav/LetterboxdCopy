@@ -58,12 +58,12 @@ function ReviewList() {
   if (list.length === 0) return <p>No reviews yet.</p>;
 
   return (
-    <ul className="grid grid-cols-4 gap-4">
+    <ul className="grid grid-cols-3 gap-4">
       {list.map(review => {
         const { movie } = review;
         return (
           <li key={movie.id}>
-            <Card className="flex flex-row items-start gap-4 p-4">
+            <Card className="flex h-full flex-row items-start gap-4 p-4">
               <Link to={`/review/${movie.id}`} className="shrink-0">
                 {movie.poster_path ? (
                   <img src={IMG_BASE + movie.poster_path} alt={movie.title} className="h-[150px] w-[100px] rounded-md object-cover" />
@@ -74,10 +74,10 @@ function ReviewList() {
 
               <div>
                 <Link to={`/review/${movie.id}`}>
-                  <h2>{movie.title}</h2>
+                  <h2 className="line-clamp-1 font-semibold">{movie.title}</h2>
                 </Link>
 
-                <div>
+                <div className="flex items-center justify-between">
                   <StarRating
                     rating={review.rating}
                     onChange={rating => updateReview({ ...review, rating })}
@@ -92,7 +92,7 @@ function ReviewList() {
                   </Button>
                 </div>
 
-                <Button variant="destructive" onClick={() => removeReview(review)}>
+                <Button variant="destructive" className="mt-auto w-full" onClick={() => removeReview(review)}>
                   <Trash2 /> Remove
                 </Button>
               </div>
